@@ -8,9 +8,9 @@ import { Button } from '@/components/ui/button'
 import { DialogBaseProps } from '@/types/DialogBaseProps'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 
-interface EditLinkModalProps extends DialogBaseProps {}
+interface EditLinkDialogProps extends DialogBaseProps {}
 
-const EditLinkModal = (props: EditLinkModalProps) => {
+const EditLinkDialog = (props: EditLinkDialogProps) => {
   const { open, onOpenChange } = props
   const { register, handleSubmit } = useForm()
 
@@ -43,4 +43,4 @@ const EditLinkModal = (props: EditLinkModalProps) => {
   )
 }
 
-export default EditLinkModal
+export default EditLinkDialog

@@ -6,7 +6,7 @@ import { useEditLinkDialog } from '../useEditLinkDialog'
 import AlertDialog from '@/components/composables/alert-dialog'
 import { Table, TableRow, TableBody } from '@/components/ui/table'
 import { useLinkStatsDialog } from '@/features/links/useLinkStatsDialog'
-import EditLinkModal from '@/features/links/composables/edit-link-modal'
+import EditLinkDialog from '@/features/links/composables/edit-link-dialog'
 import { TableCell, TableHead, TableHeader } from '@/components/ui/table'
 import LinkStatsDialog from '@/features/links/composables/link-stats-dialog'
 
@@ -60,7 +60,7 @@ const LinksTable = () => {
         </TableBody>
       </Table>
       {/* Table sub elements, modals and floating elements */}
-      <EditLinkModal open={isOpenEditDialog} onOpenChange={closeEditDialog} />
+      <EditLinkDialog open={isOpenEditDialog} onOpenChange={closeEditDialog} />
       <LinkStatsDialog open={isOpenStatsDialog} onOpenChange={closeStatsDialog} />
       <AlertDialog
         open={isOpenAlertDialog}
