@@ -1,7 +1,7 @@
-import { TabsContent } from '../ui/tabs'
+import { TabsContent } from '@/components/ui/tabs'
 
 import React, { PropsWithChildren } from 'react'
-import PageMotion from './page-motion'
+import PageMotion from '@/components/composables/page-motion'
 
 export interface StatsTabProps extends PropsWithChildren {
   value: string

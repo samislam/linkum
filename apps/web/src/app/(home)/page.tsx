@@ -1,10 +1,10 @@
 import Header from '@/components/composables/header'
 import PageMotion from '@/components/composables/page-motion'
 import AnimatedLink from '@/components/composables/animated-link'
-import StatsMainArea from '@/components/composables/stats-main-area'
-import EditLinkModal from '@/components/composables/edit-link-modal'
+import StatsMainArea from '@/features/statistics/composables/stats-main-area'
+import EditLinkModal from '@/features/links/composables/edit-link-modal'
 import AnimatedBubbles from '@/components/composables/animated-bubbles'
-import ShortenLinkForm from '@/components/composables/shorten-link-form'
+import ShortenLinkForm from '@/features/links/composables/shorten-link-form'
 import AnimatedSparkles from '@/components/composables/animated-sparkles'
 
 export default function Home() {

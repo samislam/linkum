@@ -1,8 +1,8 @@
 import React from 'react'
 import StatsTab from './stats-tab'
-import MyLinksTabContent from './my-links-tab-content'
 import StatisticsTabContent from './statistics-tab-content'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import MyLinksTabContent from '@/features/links/composables/my-links-tab-content'
 
 const StatsMainArea = () => {
   return (

@@ -1,6 +1,6 @@
 import pagesDefsConfig from '#/config/pagesDefs.config'
-import AuthCard from '@/components/composables/auth-card'
-import LoginForm from '@/components/composables/login-form'
+import AuthCard from '@/features/auth/composables/auth-card'
+import LoginForm from '@/features/auth/composables/login-form'
 import PageMotion from '@/components/composables/page-motion'
 import AnimatedBubbles from '@/components/composables/animated-bubbles'
 

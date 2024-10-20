@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '../ui/button'
+import { Button } from '@/components/ui/button'
 import { BarChart2, MapPin, Globe } from 'lucide-react'
 import { Dialog, DialogTitle } from '@/components/ui/dialog'
 import ClicksOverTimeDiagram from './clicks-over-time-diagram'

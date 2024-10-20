@@ -2,7 +2,7 @@
 
 import React from 'react'
 import StatCard from './stat-card'
-import { Card, CardTitle } from '../ui/card'
+import { Card, CardTitle } from '@/components/ui/card'
 import ClicksOverTimeDiagram from './clicks-over-time-diagram'
 
 const StatisticsTabContent = () => {

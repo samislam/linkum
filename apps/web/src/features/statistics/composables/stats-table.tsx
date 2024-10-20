@@ -1,7 +1,7 @@
 'use client'
 
-import { Button } from '../ui/button'
 import React, { useState } from 'react'
+import { Button } from '@/components/ui/button'
 import { Edit2, Trash2, BarChart2 } from 'lucide-react'
 import { Table, TableRow, TableBody } from '@/components/ui/table'
 import { TableCell, TableHead, TableHeader } from '@/components/ui/table'

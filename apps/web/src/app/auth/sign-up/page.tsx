@@ -1,7 +1,7 @@
 import pagesDefsConfig from '#/config/pagesDefs.config'
-import AuthCard from '@/components/composables/auth-card'
+import AuthCard from '@/features/auth/composables/auth-card'
 import PageMotion from '@/components/composables/page-motion'
-import SignUpForm from '@/components/composables/sign-up-form'
+import SignUpForm from '@/features/auth/composables/sign-up-form'
 import AnimatedBubbles from '@/components/composables/animated-bubbles'
 
 const page = () => {

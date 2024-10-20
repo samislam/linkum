@@ -1,5 +1,5 @@
 import React from 'react'
-import StatsTable from './stats-table'
+import StatsTable from '@/features/statistics/composables/stats-table'
 
 const MyLinksTabContent = () => {
   return <StatsTable />
