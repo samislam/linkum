@@ -29,7 +29,8 @@
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "tailwindest": "^2.3.6",
-    "withpropsmerge": "^1.2.2"
+    "withpropsmerge": "^1.2.2",
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
