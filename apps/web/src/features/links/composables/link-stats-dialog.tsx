@@ -2,10 +2,10 @@ import React from 'react'
 import { Button } from '@/components/ui/button'
 import { BarChart2, MapPin, Globe } from 'lucide-react'
 import { Dialog, DialogTitle } from '@/components/ui/dialog'
-import ClicksOverTimeDiagram from './clicks-over-time-diagram'
 import { Table, TableRow, TableBody } from '@/components/ui/table'
 import { TableCell, TableHead, TableHeader } from '@/components/ui/table'
 import { DialogHeader, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import ClicksOverTimeDiagram from '@/features/statistics/composables/clicks-over-time-diagram'
 
 const mockClickData = [
   {
@@ -22,7 +22,7 @@ const mockClickData = [
   },
 ]
 
-const StatsDialog = () => {
+const LinkStatsDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -72,4 +72,4 @@ const StatsDialog = () => {
   )
 }
 
-export default StatsDialog
+export default LinkStatsDialog
