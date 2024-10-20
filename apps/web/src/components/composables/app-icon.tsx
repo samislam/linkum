@@ -5,7 +5,6 @@ import { tw } from '@/lib/tailwindTool'
 import appConfig from '#/config/app.config'
 import React, { ComponentProps } from 'react'
 import pagesDefsConfig from '#/config/pagesDefs.config'
-import { Span } from '@/components/ui/conditional-components'
 
 export type AppIconVariants =
   | 'icon'
@@ -63,12 +62,13 @@ const AppIcon = (props: AppIconProps) => {
         alt={appConfig.appName}
         className={classNames(appIconSizesMap.class(size), { hidden: variant === 'text' })}
       />
-      <Span
-        renderIf={variant !== 'icon'}
-        className={classNames(`font-bold text-${color}-600`, appIconTextSizesMap.class(size))}
+      <span
+        className={classNames(`font-bold text-${color}-600`, appIconTextSizesMap.class(size), {
+          hidden: variant !== 'icon',
+        })}
       >
         {appConfig.appName}
-      </Span>
+      </span>
     </Link>
   )
 }
