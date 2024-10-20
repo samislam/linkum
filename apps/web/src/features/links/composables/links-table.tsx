@@ -1,10 +1,14 @@
 'use client'
-
-import React, { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Edit2, Trash2, BarChart2 } from 'lucide-react'
+import React from 'react'
+import LinksActionButtons from './link-action-buttons'
+import { useAlertDialog } from '@/hooks/useAlertDialog'
+import { useEditLinkDialog } from '../useEditLinkDialog'
+import AlertDialog from '@/components/composables/alert-dialog'
 import { Table, TableRow, TableBody } from '@/components/ui/table'
+import { useLinkStatsDialog } from '@/features/links/useLinkStatsDialog'
+import EditLinkModal from '@/features/links/composables/edit-link-modal'
 import { TableCell, TableHead, TableHeader } from '@/components/ui/table'
+import LinkStatsDialog from '@/features/links/composables/link-stats-dialog'
 
 const mockLinks = [
   {
@@ -24,40 +28,47 @@ const mockLinks = [
 ]
 
 const LinksTable = () => {
-  const [selectedLink, setSelectedLink] = useState(null)
+  const closeStatsDialog = useLinkStatsDialog((state) => state.close)
+  const isOpenStatsDialog = useLinkStatsDialog((state) => state.isOpen)
+  const closeEditDialog = useEditLinkDialog((state) => state.close)
+  const isOpenEditDialog = useEditLinkDialog((state) => state.isOpen)
+  const closeAlertDialog = useAlertDialog((state) => state.close)
+  const isOpenAlertDialog = useAlertDialog((state) => state.isOpen)
+
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Label</TableHead>
-          <TableHead>URL</TableHead>
-          <TableHead>Clicks</TableHead>
-          <TableHead>Actions</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {mockLinks.map((link) => (
-          <TableRow key={link.id}>
-            <TableCell>{link.label}</TableCell>
-            <TableCell className="max-w-xs truncate">{link.url}</TableCell>
-            <TableCell>{link.clicks}</TableCell>
-            <TableCell>
-              <div className="flex space-x-2">
-                <Button variant="outline" size="sm" onClick={() => setSelectedLink(link)}>
-                  <Edit2 className="h-4 w-4" />
-                </Button>
-                <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-                <Button variant="outline" size="sm">
-                  <BarChart2 className="h-4 w-4" />
-                </Button>
-              </div>
-            </TableCell>
+    <React.Fragment>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Label</TableHead>
+            <TableHead>URL</TableHead>
+            <TableHead>Clicks</TableHead>
+            <TableHead>Actions</TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {mockLinks.map((link) => (
+            <TableRow key={link.id}>
+              <TableCell>{link.label}</TableCell>
+              <TableCell className="max-w-xs truncate">{link.url}</TableCell>
+              <TableCell>{link.clicks}</TableCell>
+              <TableCell>
+                <LinksActionButtons />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      {/* Table sub elements, modals and floating elements */}
+      <EditLinkModal open={isOpenEditDialog} onOpenChange={closeEditDialog} />
+      <LinkStatsDialog open={isOpenStatsDialog} onOpenChange={closeStatsDialog} />
+      <AlertDialog
+        open={isOpenAlertDialog}
+        onOpenChange={closeAlertDialog}
+        title="Delete Link"
+        body="Are you sure that you want to delete this link? deleting the link means that people will no longer be able to reach your website using this link anymore. Please be aware that this action can not be undone"
+      />
+    </React.Fragment>
   )
 }
 

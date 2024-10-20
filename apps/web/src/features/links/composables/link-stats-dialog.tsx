@@ -1,11 +1,13 @@
+'use client'
+
 import React from 'react'
-import { Button } from '@/components/ui/button'
-import { BarChart2, MapPin, Globe } from 'lucide-react'
+import { MapPin, Globe } from 'lucide-react'
 import { Dialog, DialogTitle } from '@/components/ui/dialog'
 import { Table, TableRow, TableBody } from '@/components/ui/table'
 import { TableCell, TableHead, TableHeader } from '@/components/ui/table'
 import { DialogHeader, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import ClicksOverTimeDiagram from '@/features/statistics/composables/clicks-over-time-diagram'
+import { DialogBaseProps } from '@/types/DialogBaseProps'
 
 const mockClickData = [
   {
@@ -22,14 +24,13 @@ const mockClickData = [
   },
 ]
 
-const LinkStatsDialog = () => {
+export interface LinkStatsDialogProps extends DialogBaseProps {}
+
+const LinkStatsDialog = (props: LinkStatsDialogProps) => {
+  const { open, onOpenChange } = props
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          <BarChart2 className="h-4 w-4" />
-        </Button>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[625px]">
         <DialogHeader>
           <DialogTitle>Link Statistics</DialogTitle>
