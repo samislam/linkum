@@ -23,7 +23,7 @@ const mockLinks = [
   },
 ]
 
-const StatsTable = () => {
+const LinksTable = () => {
   const [selectedLink, setSelectedLink] = useState(null)
   return (
     <Table>
@@ -61,4 +61,4 @@ const StatsTable = () => {
   )
 }
 
-export default StatsTable
+export default LinksTable

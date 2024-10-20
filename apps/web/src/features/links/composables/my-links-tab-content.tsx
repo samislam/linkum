@@ -1,8 +1,8 @@
 import React from 'react'
-import StatsTable from '@/features/statistics/composables/stats-table'
+import LinksTable from '@/features/links/composables/links-table'
 
 const MyLinksTabContent = () => {
-  return <StatsTable />
+  return <LinksTable />
 }
 
 export default MyLinksTabContent
