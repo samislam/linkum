@@ -64,7 +64,7 @@ const AppIcon = (props: AppIconProps) => {
       />
       <span
         className={classNames(`font-bold text-${color}-600`, appIconTextSizesMap.class(size), {
-          hidden: variant !== 'icon',
+          hidden: variant === 'text',
         })}
       >
         {appConfig.appName}
