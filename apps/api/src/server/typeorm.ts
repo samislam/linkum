@@ -25,6 +25,7 @@ switch (process.env.NODE_ENV) {
       username: env.DATABASE_USERNAME,
       password: env.DATABASE_PASSWORD,
       entities: TypeORMEntities,
+      synchronize: true,
     } satisfies DataSourceOptions)
 
     break
