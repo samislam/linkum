@@ -1,14 +1,24 @@
-import { Repository } from 'typeorm'
+import { omit } from 'lodash'
 import { UserEntity } from './user.entity'
+import { Catch } from 'catch-decorator-ts'
 import { InjectRepository } from '@nestjs/typeorm'
+import { QueryFailedError, Repository } from 'typeorm'
+import { CreateUserDto } from './dtos/create-user.dto'
 import { Injectable, NotFoundException } from '@nestjs/common'
+import { DbErrorClassifier } from '@/classes/db-error-classifier'
 import { DeleteByIdServiceReturnType } from '@/types/crud-interfaces'
 import { CRUDService, FindServiceReturnType } from '@/types/crud-interfaces'
 import { CreateServiceReturnType, FindByIdServiceReturnType } from '@/types/crud-interfaces'
 
 @Injectable()
-export class UsersService implements Omit<CRUDService<UserEntity>, 'updateById'> {
-  constructor(@InjectRepository(UserEntity) private readonly usersRepo: Repository<UserEntity>) {}
+export class UsersService
+  extends DbErrorClassifier
+  implements Omit<CRUDService<UserEntity>, 'updateById'>
+{
+  constructor(@InjectRepository(UserEntity) private readonly usersRepo: Repository<UserEntity>) {
+    super({ errorMessages: { duplicateErrMsg: 'Email already exists!' } })
+  }
+
   async find(): Promise<FindServiceReturnType<UserEntity>> {
     const data = await this.usersRepo.find()
     return data
@@ -18,11 +28,12 @@ export class UsersService implements Omit<CRUDService<UserEntity>, 'updateById'>
     if (!data) throw new NotFoundException(`User with id ${id} not found`)
     return data
   }
-  async create(payload: object): Promise<CreateServiceReturnType<UserEntity>> {
-    const instance = this.usersRepo.create({ ...payload })
-    const createdItem = await this.usersRepo.save(instance)
+  @Catch(QueryFailedError, (err: QueryFailedError, ctx: UsersService) => ctx.dbErrorClassifier(err))
+  async create(payload: CreateUserDto): Promise<CreateServiceReturnType<UserEntity>> {
+    const instance = this.usersRepo.create(payload)
+    const createdItem = omit(await this.usersRepo.save(instance), 'password')
     return {
-      createdItem,
+      createdItem: createdItem as UserEntity, // quick solution to follow up with the pattern
       createdItemId: createdItem.id,
     }
   }

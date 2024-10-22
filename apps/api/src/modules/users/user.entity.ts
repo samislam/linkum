@@ -1,6 +1,8 @@
+import * as bcrypt from 'bcrypt'
 import { from } from '@/utils/misc-utils'
 import { numberToString } from '@/utils/transformers'
-import { Column, CreateDateColumn, Entity, Generated, PrimaryColumn } from 'typeorm'
+import { Entity, Generated, PrimaryColumn } from 'typeorm'
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn } from 'typeorm'
 
 @Entity('users')
 export class UserEntity {
@@ -14,9 +16,18 @@ export class UserEntity {
   @Column({ length: 255, unique: true })
   email!: string
 
-  @Column({ length: 255 })
-  passwordHash!: string
+  @Column({ name: 'passwordHash', length: 255, select: false })
+  password!: string
 
   @CreateDateColumn({ type: 'timestamp' })
   createTime!: Date
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword() {
+    if (this.password) {
+      const saltRounds = 10
+      this.password = await bcrypt.hash(this.password, saltRounds)
+    }
+  }
 }

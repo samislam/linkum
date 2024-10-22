@@ -7,6 +7,7 @@ import { UsersModule } from './modules/users/users.module'
 import environmentSchema from '@/server/environment-schema'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { RedirectionModule } from './modules/redirection/redirection.module'
+import { AuthModule } from './modules/auth/auth.module'
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { RedirectionModule } from './modules/redirection/redirection.module'
     LinksModule,
     RedirectionModule,
     UsersModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

@@ -28,6 +28,10 @@ Authorization: Bearer YOUR_JWT_TOKEN
 GET http://localhost:3001/v1/auth/me
 Authorization: Bearer YOUR_JWT_TOKEN
 
+### Generate a new guest token
+GET http://localhost:3001/v1/auth/guest-token
+
+
 ###############################################################
 ###               URL shortening [/links/*]                 ###
 ###############################################################
