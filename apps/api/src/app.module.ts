@@ -1,10 +1,30 @@
-import { Module } from "@nestjs/common";
-import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
+import typeorm from './server/typeorm'
+import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { EnvironmentVars } from './types/environment-vars'
+import { LinksModule } from './modules/links/links.module'
+import { UsersModule } from './modules/users/users.module'
+import environmentSchema from '@/server/environment-schema'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { RedirectionModule } from './modules/redirection/redirection.module'
+import { AuthModule } from './modules/auth/auth.module'
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [typeorm],
+      validationSchema: environmentSchema,
+      envFilePath: `.env.${process.env.NODE_ENV}.local`,
+    }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService<EnvironmentVars>) => config.getOrThrow('_TYPEORM_ENV'),
+    }),
+    LinksModule,
+    RedirectionModule,
+    UsersModule,
+    AuthModule,
+  ],
 })
 export class AppModule {}

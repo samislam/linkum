@@ -1,17 +1,18 @@
-### User authentication
-
-# Sign up
-POST http://localhost:3001/api/auth/signup
+###############################################################
+###              User authentication [/auth/*]              ###
+###############################################################
+### Sign up
+POST http://localhost:3001/v1/auth/signup
 Content-Type: application/json
 
 {
-  "name": "Ahmad",
+  "label": "Ahmad",
   "email": "user@example.com",
   "password": "securePassword123"
 }
 
-# Login
-POST http://localhost:3001/api/auth/login
+### Login
+POST http://localhost:3001/v1/auth/login
 Content-Type: application/json
 
 {
@@ -19,68 +20,70 @@ Content-Type: application/json
   "password": "securePassword123"
 }
 
-# Logout
-POST http://localhost:3001/api/auth/logout
+### Logout
+POST http://localhost:3001/v1/auth/logout
 Authorization: Bearer YOUR_JWT_TOKEN
 
-# Get authenticated user info
-GET http://localhost:3001/api/auth/me
+### Get authenticated user info
+GET http://localhost:3001/v1/auth/me
 Authorization: Bearer YOUR_JWT_TOKEN
 
+### Generate a new guest token
+GET http://localhost:3001/v1/auth/guest-token
 
-### URL shortening
 
-# Create shortened URL (Guest)
-POST http://localhost:3001/api/links
-Content-Type: application/json
-
-{
-  "name": "Some name",
-  "originalUrl": "https://example.com/very-long-url",
-  "guestId": "guest_123abc"
-}
-
-# Create shortened URL (Authenticated User)
-POST http://localhost:3001/api/links
+###############################################################
+###               URL shortening [/links/*]                 ###
+###############################################################
+### Create shortened URL
+POST http://localhost:3001/v1/links
 Content-Type: application/json
 Authorization: Bearer YOUR_JWT_TOKEN
 
 {
-  "name": "Some name",
+  "label": "Some name",
   "originalUrl": "https://example.com/very-long-url"
 }
 
-# Redirect to the original URL
-GET http://localhost:3001/:shortUrl
 
-
-### Link Management
-
-# Get links created by Authenticated User
-GET http://localhost:3001/api/links
+### Get links created by Authenticated User
+GET http://localhost:3001/v1/links
 Authorization: Bearer YOUR_JWT_TOKEN
 
-# Get Links Created by Guest User
-GET http://localhost:3001/api/links?guestId=guest_123abc
+### Get link by id created by Authenticated User
+GET http://localhost:3001/v1/links/1
+Authorization: Bearer YOUR_JWT_TOKEN
 
-# Update a Shortened URL (Authenticated User)
-PATCH http://localhost:3001/api/links/123456
+
+### Update a Shortened URL
+PATCH http://localhost:3001/v1/links/123456
 Content-Type: application/json
 Authorization: Bearer YOUR_JWT_TOKEN
 
 {
-  "name": "New name",
+  "label": "New name",
   "originalUrl": "https://example.com/updated-url"
 }
 
-# Delete a Shortened URL (Authenticated User)
-DELETE http://localhost:3001/api/links/123456
+### Delete a Shortened URL
+DELETE http://localhost:3001/v1/links/123456
 Authorization: Bearer YOUR_JWT_TOKEN
 
 
-### Analytics
+###############################################################
+###               Analytics [/analytics/*]                  ###
+###############################################################
 
-# Get Analytics for a Specific Shortened URL
-GET http://localhost:3001/api/analytics/shortUrl123
+### Get Analytics for a Specific Shortened URL
+GET http://localhost:3001/v1/analytics/shortUrl123
 Authorization: Bearer YOUR_JWT_TOKEN
 
+###############################################################
+###            Redirection [/r/*] [/redirect/*]             ###
+###############################################################
+
+### Redirect to a shorten URL
+GET http://localhost:3001/v1/redirect/wp6Wqm8
+
+### Redirect to a shorten URL (alias)
+GET http://localhost:3001/v1/r/wp6Wqm8
