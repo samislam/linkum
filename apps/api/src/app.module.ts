@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { EnvironmentVars } from './types/environment-vars'
 import { LinksModule } from './modules/links/links.module'
+import { UsersModule } from './modules/users/users.module'
 import environmentSchema from '@/server/environment-schema'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { RedirectionModule } from './modules/redirection/redirection.module'
@@ -21,6 +22,7 @@ import { RedirectionModule } from './modules/redirection/redirection.module'
     }),
     LinksModule,
     RedirectionModule,
+    UsersModule,
   ],
 })
 export class AppModule {}
