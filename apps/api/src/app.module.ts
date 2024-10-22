@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { EnvironmentVars } from './types/environment-vars'
 import { ConfigModule, ConfigService } from '@nestjs/config'
+import { LinksModule } from './modules/links/links.module';
 import environmentSchema from '@/server/environment-schema'
 
 @Module({
@@ -17,6 +18,7 @@ import environmentSchema from '@/server/environment-schema'
       inject: [ConfigService],
       useFactory: (config: ConfigService<EnvironmentVars>) => config.getOrThrow('_TYPEORM_ENV'),
     }),
+    LinksModule,
   ],
   controllers: [],
   providers: [],
