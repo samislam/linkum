@@ -14,6 +14,9 @@ export class LinkEntity {
   @Column({ length: 1500 })
   originalUrl!: string
 
+  @Column({ length: 32, unique: true })
+  shortSlug!: string
+
   @CreateDateColumn({ type: 'timestamp' })
   createTime!: Date
 }

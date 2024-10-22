@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import { Repository } from 'typeorm'
 import { LinkEntity } from './link.entity'
 import { InjectRepository } from '@nestjs/typeorm'
@@ -21,8 +22,13 @@ export class LinksService implements CRUDService<LinkEntity> {
     if (!data) throw new NotFoundException(`Link with id ${id} not found`)
     return data
   }
+  async findBySlug(slug: string) {
+    const data = await this.linkRepo.findOneBy({ shortSlug: slug })
+    if (!data) throw new NotFoundException(`Link not found!`)
+    return data
+  }
   async create(payload: CreateLinkDto): Promise<CreateServiceReturnType<LinkEntity>> {
-    const instance = this.linkRepo.create(payload)
+    const instance = this.linkRepo.create({ ...payload, shortSlug: nanoid(7) })
     const createdItem = await this.linkRepo.save(instance)
     return {
       createdItem,
