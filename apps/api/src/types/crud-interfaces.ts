@@ -2,19 +2,19 @@ import { DeleteByIdResponse, UpdateByIdResponse } from './response-templates'
 import { FindResponse, CreateResponse, FindByIdResponse } from './response-templates'
 
 export interface CRUDController<T extends object> {
-  findRoute(): Promise<FindResponse<T>>
-  findByIdRoute(id: string): Promise<FindByIdResponse<T>>
-  createRoute(body: object): Promise<CreateResponse<T>>
-  updateByIdRoute(id: string, body: object): Promise<UpdateByIdResponse<T>>
-  deleteByIdRoute(id: string): Promise<DeleteByIdResponse<T>>
+  findRoute(...args: any[]): Promise<FindResponse<T>>
+  findByIdRoute(id: string, ...args: any[]): Promise<FindByIdResponse<T>>
+  createRoute(body: object, ...args: any[]): Promise<CreateResponse<T>>
+  updateByIdRoute(id: string, body: object, ...args: any[]): Promise<UpdateByIdResponse<T>>
+  deleteByIdRoute(id: string, ...args: any[]): Promise<DeleteByIdResponse<T>>
 }
 
 export interface CRUDService<T extends object> {
-  find(): Promise<FindServiceReturnType<T>>
-  findById(id: string): Promise<FindByIdServiceReturnType<T>>
-  create(payload: object): Promise<CreateServiceReturnType<T>>
-  updateById(id: string, payload: object): Promise<UpdateByIdServiceReturnType<T>>
-  deleteById(id: string): Promise<DeleteByIdServiceReturnType<T>>
+  find(...args: any[]): Promise<FindServiceReturnType<T>>
+  findById(id: string, ...args: any[]): Promise<FindByIdServiceReturnType<T>>
+  create(payload: object, ...args: any[]): Promise<CreateServiceReturnType<T>>
+  updateById(id: string, payload: object, ...args: any[]): Promise<UpdateByIdServiceReturnType<T>>
+  deleteById(id: string, ...args: any[]): Promise<DeleteByIdServiceReturnType<T>>
 }
 
 export type FindServiceReturnType<T extends object> = T[]
