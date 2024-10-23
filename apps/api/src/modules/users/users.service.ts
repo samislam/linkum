@@ -5,9 +5,9 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { QueryFailedError, Repository } from 'typeorm'
 import { CreateUserDto } from './dtos/create-user.dto'
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { DbErrorClassifier } from '@/classes/db-error-classifier'
 import { DeleteByIdServiceReturnType } from '@/types/crud-interfaces'
 import { CRUDService, FindServiceReturnType } from '@/types/crud-interfaces'
+import { DbErrorClassifier } from '@/classes/db-error-classifier/db-error-classifier'
 import { CreateServiceReturnType, FindByIdServiceReturnType } from '@/types/crud-interfaces'
 
 @Injectable()
@@ -16,7 +16,7 @@ export class UsersService
   implements Omit<CRUDService<UserEntity>, 'updateById'>
 {
   constructor(@InjectRepository(UserEntity) private readonly usersRepo: Repository<UserEntity>) {
-    super({ errorMessages: { duplicateErrMsg: 'Email already exists!' } })
+    super({ errorMessages: { ER_DUP_ENTRY: 'Email already exists!' } })
   }
 
   async find(): Promise<FindServiceReturnType<UserEntity>> {
@@ -28,7 +28,7 @@ export class UsersService
     if (!data) throw new NotFoundException(`User with id ${id} not found`)
     return data
   }
-  @Catch(QueryFailedError, (err: QueryFailedError, ctx: UsersService) => ctx.dbErrorClassifier(err))
+  @Catch(QueryFailedError, (err: QueryFailedError, ctx: UsersService) => ctx.classifier(err))
   async create(payload: CreateUserDto): Promise<CreateServiceReturnType<UserEntity>> {
     const instance = this.usersRepo.create(payload)
     const createdItem = omit(await this.usersRepo.save(instance), 'password')
