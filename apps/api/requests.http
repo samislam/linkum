@@ -6,8 +6,8 @@ POST http://localhost:3001/v1/auth/signup
 Content-Type: application/json
 
 {
-  "label": "Ahmad",
-  "email": "user@example.com",
+  "name": "Islam",
+  "email": "islam@gmail.com",
   "password": "securePassword123"
 }
 
@@ -16,20 +16,22 @@ POST http://localhost:3001/v1/auth/login
 Content-Type: application/json
 
 {
-  "email": "user@example.com",
+  "email": "islam@gmail.com",
   "password": "securePassword123"
 }
 
 ### Logout
 POST http://localhost:3001/v1/auth/logout
-Authorization: Bearer YOUR_JWT_TOKEN
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJpMTc1VW1wbldVbmhxcVE1a0xGQ0YiLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE3Mjk2OTE4NDksImV4cCI6MTcyOTc3ODI0OX0.zXJz4SJhD1xRnBUWEVUqBkSR6oN9LnylB9lU0c3Ws6U
 
 ### Get authenticated user info
-GET http://localhost:3001/v1/auth/me
-Authorization: Bearer YOUR_JWT_TOKEN
+GET http://localhost:3001/v1/auth/whoami
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNCIsImlhdCI6MTcyOTY5MDY5OCwiZXhwIjoxNzI5Nzc3MDk4fQ.8InzHbWH3P7MMWa0-TLi1FpCSY6jnM5OwiTDS0am46M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNyIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzI5NzA0MTYwLCJleHAiOjE3Mjk3OTA1NjB9.-R7NC3vPI4KIFPS9Y_H4ohFgEkaep5BC8juBYaUIElY
+
 
 ### Generate a new guest token
-GET http://localhost:3001/v1/auth/guest-token
+POST http://localhost:3001/v1/auth/guest-id
 
 
 ###############################################################
@@ -38,17 +40,17 @@ GET http://localhost:3001/v1/auth/guest-token
 ### Create shortened URL
 POST http://localhost:3001/v1/links
 Content-Type: application/json
-Authorization: Bearer YOUR_JWT_TOKEN
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNyIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzI5NzA0MzQxLCJleHAiOjE3Mjk3OTA3NDF9.0_sZ-AoQR8_HrBSEtDOzyxn4HGHQF09NmDZJgYJ5XoY
 
 {
-  "label": "Some name",
-  "originalUrl": "https://example.com/very-long-url"
+  "label": "Islam link",
+  "originalUrl": "https://aya-sdm.com"
 }
 
 
 ### Get links created by Authenticated User
 GET http://localhost:3001/v1/links
-Authorization: Bearer YOUR_JWT_TOKEN
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNyIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzI5NzA0MzQxLCJleHAiOjE3Mjk3OTA3NDF9.0_sZ-AoQR8_HrBSEtDOzyxn4HGHQF09NmDZJgYJ5XoY
 
 ### Get link by id created by Authenticated User
 GET http://localhost:3001/v1/links/1
@@ -86,4 +88,4 @@ Authorization: Bearer YOUR_JWT_TOKEN
 GET http://localhost:3001/v1/redirect/wp6Wqm8
 
 ### Redirect to a shorten URL (alias)
-GET http://localhost:3001/v1/r/wp6Wqm8
+GET http://localhost:3001/v1/r/RjL6L0U

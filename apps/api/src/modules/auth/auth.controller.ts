@@ -1,28 +1,30 @@
+import { omit } from 'lodash'
 import { nanoid } from 'nanoid'
 import { LoginDto } from './dtos/login.dto'
 import { AuthService } from './auth.service'
 import { SignupDto } from './dtos/signup.dto'
-import { Body, Controller, Get, Post, UnauthorizedException } from '@nestjs/common'
+import { AppRequest } from '@/types/app-request'
+import { AuthGuard } from '@/guards/auth/auth.guard'
+import { Body, Controller, Get } from '@nestjs/common'
+import { CurrentUser } from '@/decorators/current-user.decorator'
+import { Post, UnauthorizedException, UseGuards } from '@nestjs/common'
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get('/guest-token')
-  async guestToken() {
+  @Post('/generate-guest-id')
+  async generateGuestId() {
     const guestId = nanoid()
     const token = await this.authService.generateToken(guestId, 'guest')
     return { token, guestId }
   }
 
-  @Post('/signup')
+  @Post('/sign-up')
   async signup(@Body() body: SignupDto) {
     const createdUser = await this.authService.signup(body)
     const token = await this.authService.generateToken(createdUser.createdItemId, 'user')
-    return {
-      token,
-      ...createdUser,
-    }
+    return { token, ...createdUser }
   }
 
   @Post('/login')
@@ -34,7 +36,8 @@ export class AuthController {
   }
 
   @Get('/whoami')
-  async whoami() {
-    // Implement logic to fetch the authenticated user's details
+  @UseGuards(AuthGuard)
+  async whoami(@CurrentUser() user: AppRequest): Promise<Omit<AppRequest, 'session'>> {
+    return omit(user, 'session')
   }
 }

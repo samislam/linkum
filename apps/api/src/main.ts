@@ -1,4 +1,4 @@
-import * as chalk from 'chalk'
+import chalk from 'chalk'
 import { AppModule } from './app.module'
 import { NestFactory } from '@nestjs/core'
 import { formatUrl } from './utils/formatUrl'

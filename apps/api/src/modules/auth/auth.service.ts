@@ -14,9 +14,9 @@ import { UsersService } from '@/modules/users/users.service'
 @Injectable()
 export class AuthService {
   constructor(
+    private jwtService: JwtService,
     private readonly usersService: UsersService,
-    @InjectRepository(UserEntity) private readonly usersRepo: Repository<UserEntity>,
-    private jwtService: JwtService
+    @InjectRepository(UserEntity) private readonly usersRepo: Repository<UserEntity>
   ) {}
 
   async signup(payload: SignupDto) {
