@@ -1,3 +1,4 @@
+import { Role } from '@/types/constants'
 import { from } from '@/utils/misc-utils'
 import { numberToString } from '@/utils/transformers'
 import { Column, CreateDateColumn, Entity, Generated, PrimaryColumn } from 'typeorm'
@@ -16,6 +17,12 @@ export class LinkEntity {
 
   @Column({ length: 32, unique: true })
   shortSlug!: string
+
+  @Column()
+  creatorId!: string // Can be a user ID or a guest identifier
+
+  @Column({ type: 'enum', enum: ['user', 'guest'] })
+  creatorType!: Role
 
   @CreateDateColumn({ type: 'timestamp' })
   createTime!: Date
